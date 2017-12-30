@@ -2,11 +2,13 @@ package com.quickcanteen.controller.web;
 
 import com.quickcanteen.annotation.Authentication;
 import com.quickcanteen.dto.Role;
+import com.quickcanteen.mapper.CompanyInfoMapper;
 import com.quickcanteen.mapper.DishesMapper;
 import com.quickcanteen.mapper.TypeMapper;
 import com.quickcanteen.model.CompanyInfo;
 import com.quickcanteen.model.Dishes;
 import com.quickcanteen.model.Type;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +32,15 @@ public class WeChatController extends BaseController{
 
     @Autowired
     private TypeMapper typeMapper;
+    @Autowired
+    CompanyInfoMapper companyInfoMapper;
+
 
     @RequestMapping(value = "/index")
     @Authentication(Role.User)
     public String index(Map<String, Object> model) {
+        List<CompanyInfo> companyInfoList = companyInfoMapper.getAllCompanyInfo();
+        model.put("company_info_list", companyInfoList);
         model.put("module", MODULE_V_INDEX);
         return MODULE_V_INDEX;
     }

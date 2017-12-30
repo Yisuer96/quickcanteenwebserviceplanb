@@ -155,10 +155,10 @@ To change this template use File | Settings | File Templates.
                     <p style="margin-left: 50px;margin-top: 30px">介绍: ${dishes.dishesIntroduce}
                     </p>
                     <p style="margin-left: 50px;margin-top: 30px">评分: ${dishes.rating}
-                    <p style="margin-left: 50px;margin-top: 30px">图片 </p>
+                    <p style="margin-left: 50px;margin-top: 30px">图片 </p>-url="tables/data1.json" data-show-refresh="true"
+                           data-show-toggle="tru
                     <p style="margin-left: 50px;margin-top: 30px;font-size: 16px;font-style:bond">菜品评价</p>
-                    <table data-toggle="table" data-url="tables/data1.json" data-show-refresh="true"
-                           data-show-toggle="true" data-show-columns="true" data-search="true"
+                    <table data-toggle="table" datae" data-show-columns="true" data-search="true"
                            data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name"
                            data-sort-order="desc">
                         <thead>

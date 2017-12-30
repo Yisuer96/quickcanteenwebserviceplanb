@@ -141,7 +141,6 @@ To change this template use File | Settings | File Templates.
 
     <div class="row">
         <div class="col-md-8">
-
             <div class="panel panel-default chat">
                 <div class="panel-heading" id="accordion"><span class="glyphicon glyphicon-comment"></span> Chat</div>
                 <div class="panel-body">
