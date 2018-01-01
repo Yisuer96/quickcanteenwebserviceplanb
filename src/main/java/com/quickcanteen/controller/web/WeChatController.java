@@ -1,6 +1,7 @@
 package com.quickcanteen.controller.web;
 
 import com.quickcanteen.annotation.Authentication;
+import com.quickcanteen.dto.DishesBean;
 import com.quickcanteen.dto.Role;
 import com.quickcanteen.mapper.CompanyInfoMapper;
 import com.quickcanteen.mapper.DishesMapper;
@@ -8,13 +9,16 @@ import com.quickcanteen.mapper.TypeMapper;
 import com.quickcanteen.model.CompanyInfo;
 import com.quickcanteen.model.Dishes;
 import com.quickcanteen.model.Type;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/weChat")
@@ -40,7 +44,18 @@ public class WeChatController extends BaseController{
     @Authentication(Role.User)
     public String index(Map<String, Object> model) {
         List<CompanyInfo> companyInfoList = companyInfoMapper.getAllCompanyInfo();
+        Integer userId = getCurrentCompanyId();
+        List<Dishes> dishesList = dishesMapper.getDishesByUserId(userId);
+        List<DishesBean> recommendList = new ArrayList<>();
+        DishesBean dishesBean = new DishesBean();
+        int dishesCount = dishesList.size();
+        int highRatingDishesCount = 5 - dishesList.size();
+        List<Dishes> highRatingDishesList = dishesMapper.selectHighRatingDishesByCount(highRatingDishesCount);
+        dishesList.addAll(highRatingDishesList);
+        recommendList = dishesList.stream().map(this::parse).collect(Collectors.toList());
         model.put("company_info_list", companyInfoList);
+        model.put("user_id",userId);
+        model.put("recommend_list",recommendList);
         model.put("module", MODULE_V_INDEX);
         return MODULE_V_INDEX;
     }
@@ -88,4 +103,11 @@ public class WeChatController extends BaseController{
         return MODULE_V_UNSUBSCRIBE;
     }
 
+    private DishesBean parse(Dishes dishes){
+        DishesBean result=new DishesBean();
+        BeanUtils.copyProperties(dishes,result);
+        CompanyInfo companyInfo = companyInfoMapper.selectByPrimaryKey(dishes.getCompanyId());
+        result.setCompanyName(companyInfo.getCompanyName());
+        return result;
+    }
 }

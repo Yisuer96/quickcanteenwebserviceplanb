@@ -24,30 +24,24 @@
         <a href="#more" class="">more &raquo;</a>
     </nav>
 </div>
+<#list recommend_list as recommenddishes>
 <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-default product">
     <li>
         <div class="am-gallery-item">
             <a href="detail.html" class="">
                 <img src="/image/p.png"  alt=""/>
-                <h3 class="am-gallery-title">商务单人餐</h3>
+                <h3 class="am-gallery-title">${recommenddishes.dishesName}</h3>
                 <div class="am-gallery-desc">
-                    <em>￥50</em><i class="am-icon-cart-plus"></i>
+                    <em>${recommenddishes.price}</em><i class="am-icon-cart-plus"></i>
                 </div>
-            </a>
-        </div>
-    </li>
-    <li>
-        <div class="am-gallery-item">
-            <a href="detail.html" class="">
-                <img src="/image/p1.png"  alt=""/>
-                <h3 class="am-gallery-title">虐狗情人杯</h3>
                 <div class="am-gallery-desc">
-                    <em>￥50</em><i class="am-icon-cart-plus"></i>
+                    <em>菜品评分${recommenddishes.rating}</em><i class="am-icon-cart-plus"></i>
                 </div>
             </a>
         </div>
     </li>
 </ul>
+</#list>
 <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default title" >
     <h2 class="am-titlebar-title ">选择食堂</h2>
 </div>
@@ -55,11 +49,11 @@
 <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-default product">
     <li>
         <div class="am-gallery-item">
-            <a href="detail.html" class="">
+            <a href="shoppingcart/${companys.companyId}" class="">
                 <img src="/image/p.png"  alt=""/>
                 <h3 class="am-gallery-title">${companys.companyName}</h3>
                 <div class="am-gallery-desc">
-                    <em>食堂评价${companys.rating}</em><i class="am-icon-cart-plus"></i>
+                    <em>食堂评分${companys.rating}</em><i class="am-icon-cart-plus"></i>
                 </div>
             </a>
         </div>
